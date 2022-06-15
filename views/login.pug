@@ -1,0 +1,19 @@
+extends base.pug
+block title
+  title Login 
+block style 
+  style
+      include ../static/style.css
+block content
+  div.big
+      div.login 
+        h2 Log in to your Account 
+        form(action="/login" method="post" id="form")
+          input(type="email" placeholder="Enter your Email" name="Email")
+          input(type="Password" placeholder="Password" name="Password")
+          input(type="submit" id="submit")
+        p.fill #{Fill} 
+        div.sign
+          p.need Need an account? 
+          a(href="/signup" class="up") Sign up
+          

@@ -1,0 +1,270 @@
+* {
+  margin: 0px;
+  scroll-behavior: smooth;
+}
+body {
+  font-size: 20px;
+  /* background: url("../static/bg1.jpg") center top/ cover; */
+}
+#navbar {
+  background-color: black;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+#navbar ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 20em;
+}
+#navbar li {
+  font-size: 0.9em;
+  list-style: none;
+}
+#navbar li a {
+  text-decoration: none;
+  color: white;
+  padding: 13px 15px;
+}
+#navbar li a:hover {
+  color: red;
+}
+h1 {
+  color: white;
+  font-size: 1.3em;
+}
+.B {
+  font-size: 1.4em;
+}
+.logo {
+  background-color: red;
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 10em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto 1em;
+}
+.fulfil {
+  font-size: 0.4em;
+  font-weight: 1000;
+  text-align: right;
+  color: white;
+}
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search input {
+  margin: auto 1.3em;
+  border: 2px solid white;
+  /* box-shadow: 3px 3px grey, -3px -3px grey; */
+  font-size: 0.7em;
+  padding: 0.4em;
+  background-color: black;
+  border-radius: 0.5em;
+  color: white;
+}
+.search input:hover {
+  border: 2px solid white;
+  box-shadow: 3px 3px grey, -3px -3px grey;
+}
+.search button {
+  border: 2px solid white;
+  font-size: 0.7em;
+  padding: 0.4em;
+  background-color: black;
+  border-radius: 0.5em;
+  color: white;
+  cursor: pointer;
+}
+.search button:hover {
+  color: black;
+  background-color: white;
+}
+.lo {
+  margin-left: 1em;
+  /* margin-bottom: 0.1em; */
+}
+.login {
+  margin-right: 1em;
+}
+h4 {
+  color: white;
+  font-size: 0.8em;
+  margin-left: 1em;
+  cursor: pointer;
+}
+.products {
+  display: flex;
+  justify-content: center;
+  margin: 1em;
+}
+.items {
+  /* border: 2px solid red; */
+  margin: auto 0.7em;
+  width: 5em;
+  height: 5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.items img {
+  width: 4em;
+  border-radius: 10em;
+}
+.items p {
+  font-size: 0.7em;
+}
+.product {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  /* border: 2px solid red; */
+}
+.icons {
+  /* border: 2px solid blue; */
+  margin: 1em auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #cad3d869;
+  width: 15em;
+  height: 19em;
+  box-shadow: 2px 2px 1px rgb(192, 189, 189), -2px -2px 1px rgb(198, 195, 195);
+  border-radius: 1em;
+}
+.icons img {
+  height: 12em;
+  margin-bottom: 1em;
+}
+.h3 {
+  font-size: 1em;
+  text-align: center;
+}
+.pho {
+  width: 9em;
+  height: 9em;
+}
+h2 {
+  text-align: center;
+  margin: 0.5em auto;
+}
+#form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+  /* height: 80vh; */
+  /* border: 2px solid red; */
+}
+.myForm {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}
+.myForm input {
+  padding: 10px;
+  margin: 15px auto;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 50%;
+  font-size: 13px;
+}
+.btn {
+  padding: 7px;
+  margin: 15px auto;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 15%;
+  font-size: 15px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  box-shadow: 0.5px 0.5px black, -0.5px -0.5px black;
+}
+.cont {
+  color: white;
+}
+#form p {
+  color: white;
+  margin-bottom: 2em;
+}
+.pro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  /* border: 2px solid red; */
+  margin: 0.3em 1em;
+}
+.pro img {
+  width: 1em;
+  height: 1em;
+}
+.pro p {
+  color: white;
+  font-size: 0.5em;
+}
+.warn {
+  position: fixed;
+  width: 30em;
+  height: 20em;
+  background-color: #10122f;
+  top: 21%;
+  left: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 2px 2px grey, -2px -2px 2px grey;
+  border-radius: 20px;
+}
+.Please {
+  margin-bottom: 20px;
+}
+.a {
+  display: flex;
+  color: white;
+}
+.warn a {
+  color: rgb(4, 4, 4);
+  background-color: white;
+  padding: 5px;
+  border-radius: 7px;
+  text-decoration: none;
+}
+.warn a:hover {
+  color: white;
+  background-color: black;
+  text-decoration: underline;
+}
+.warn p {
+  margin: auto 10px;
+}
+.bc {
+  margin: 0px;
+  margin-right: 10px;
+}
+.c {
+  display: flex;
+  margin-bottom: 80px;
+  margin-top: -100px;
+}
+.hidden {
+  display: none;
+}
+.warn img {
+  width: 1em;
+  position: absolute;
+  left: 28em;
+  top: 1em;
+  cursor: pointer;
+}

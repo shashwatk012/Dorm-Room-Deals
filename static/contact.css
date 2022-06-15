@@ -1,0 +1,52 @@
+* {
+  margin: 0px;
+}
+body {
+  background-color: black;
+}
+.return {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.return a {
+  color: blue;
+}
+.return h1 {
+  margin-bottom: 20px;
+}
+h1 {
+  color: white;
+}
+.B {
+  font-size: 2em;
+  color: white;
+}
+.logo {
+  background-color: red;
+  width: 2.7em;
+  height: 2.8em;
+  border-radius: 10em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-right: 1em;
+}
+.fulfil {
+  font-size: 0.5em;
+  font-weight: 1000;
+  text-align: right;
+  color: white;
+}
+.hi {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 74px;
+  left: 44%;
+}

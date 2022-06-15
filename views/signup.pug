@@ -1,0 +1,25 @@
+extends base.pug
+block title
+  title Sign-Up 
+block style 
+  style
+      include ../static/style.css
+      include ../static/style2.css
+
+block content
+  div.big
+      div.signup 
+        h2 Sign up to your Account 
+        form(action="/signup" method="post" id="form")
+          input(type="text" placeholder="Name" name="Name")
+          input(type="text" placeholder="User name" name="Username")
+          input(type="email" placeholder="Email" name="Email")
+          input(type="Phone" placeholder="Phone number" name="Phone")
+          input(type="Password" placeholder="Password" name="Password")
+          input(type="Password" placeholder="Confirm Password" name="Cpassword")
+          input(type="submit" id="submit")
+        p.fill #{Fill} 
+        div.sign
+          p.need Already have an account? 
+          a(href="/login" class="up") Log in
+          

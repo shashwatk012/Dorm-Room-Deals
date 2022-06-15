@@ -1,0 +1,28 @@
+.signup {
+  background-color: rgb(220, 223, 225);
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 45em;
+  box-shadow: 2px 2px grey, -2px -2px grey;
+  border-radius: 1em;
+}
+#submit {
+  background-color: rgb(55, 154, 254);
+  color: white;
+  cursor: pointer;
+  margin-top: 1.5em;
+}
+.big {
+  margin-bottom: 5em;
+}
+h3 {
+  margin-bottom: 1em;
+}
+.fill {
+  font-size: 0.8em;
+  color: red;
+  margin-bottom: 1em;
+}

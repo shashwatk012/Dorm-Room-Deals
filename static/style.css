@@ -1,0 +1,99 @@
+* {
+  margin: 0px;
+}
+body {
+  font-size: 20px;
+  background: url("../static/bg1.jpg") center top/ cover;
+}
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3em;
+}
+h1 {
+  color: white;
+}
+.B {
+  font-size: 2em;
+}
+h2 {
+  margin-bottom: 1em;
+  margin-top: 1.5em;
+}
+.logo {
+  background-color: red;
+  width: 2.7em;
+  height: 2.8em;
+  border-radius: 10em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-right: 1em;
+}
+.fulfil {
+  font-size: 0.5em;
+  font-weight: 1000;
+  text-align: right;
+  color: white;
+}
+.login {
+  background-color: rgb(220, 223, 225);
+  width: 30%;
+  text-align: center;
+  height: 20em;
+  box-shadow: 2px 2px grey, -2px -2px grey;
+  border-radius: 1em;
+}
+#form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#form input {
+  width: 26em;
+  padding: 0.5em;
+  border: 1px solid #706b6b;
+  border-radius: 0.7em;
+  margin-bottom: 2em;
+}
+#submit {
+  border-radius: 0.7em;
+  margin-top: 1em;
+  background-color: rgb(55, 154, 254);
+  color: white;
+  cursor: pointer;
+}
+.big {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sign {
+  font-size: 0.7em;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 2em;
+}
+.sign a:hover {
+  color: black;
+  text-decoration: underline;
+  background-color: white;
+  padding: 0.3em;
+  border-radius: 0.4em;
+}
+.up {
+  margin-left: 0.4em;
+  color: rgb(7, 42, 74);
+  font-weight: 800;
+  text-decoration: none;
+}
+.fill {
+  font-size: 0.8em;
+  color: red;
+  margin-bottom: 1em;
+}
