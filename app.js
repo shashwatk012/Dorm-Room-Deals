@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const app = express();
 const hostname = "localhost";
-const port = 3000;
+const port = process.env.PORT || 3000;
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/BECHYU");
