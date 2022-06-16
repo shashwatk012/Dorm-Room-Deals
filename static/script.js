@@ -29,7 +29,7 @@ signup.addEventListener("click", () => {
 const product = document.querySelectorAll(".product");
 
 async function populate(obj, ele) {
-  const requestURL = `http://localhost:3000/${obj}`;
+  const requestURL = `/${obj}`;
   const request = new Request(requestURL);
 
   const response = await fetch(request);
