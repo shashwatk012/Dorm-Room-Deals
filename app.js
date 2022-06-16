@@ -62,7 +62,11 @@ const Sellerdetails = mongoose.model("Sellerdetails", SellerSchema);
 
 //home page before login
 app.get("/", (req, res) => {
-  res.status(200).sendFile("index.html", { root: __dirname });
+  try {
+    res.status(200).sendFile("index.html", { root: __dirname });
+  } catch (e) {
+    return console.log(e);
+  }
 });
 
 //home page after login
