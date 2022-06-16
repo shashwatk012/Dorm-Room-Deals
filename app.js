@@ -4,7 +4,7 @@ const fs = require("fs");
 const app = express();
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
-const hostname = "localhost";
+const hostname = "0.0.0.0";
 const port = process.env.PORT || 3000;
 const mongoDbURL =
   process.env.MONGODB_URL || "mongodb://localhost:27017/BECHYU";
