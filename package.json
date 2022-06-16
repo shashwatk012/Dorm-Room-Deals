@@ -1,11 +1,18 @@
 {
   "name": "bechyu",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.x",
+    "npm": "6.x",
+    "yarn": "1.x"
+  },
   "description": "d2c competition",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./app.js"
+    "start": "node app.js",
+    "build": "ng build",
+    "heroku-postbuild": "ng build --prod"
   },
   "keywords": [
     "Project"
