@@ -41,7 +41,7 @@ async function populate(obj, ele) {
   let html = "";
   if (ele == 1) {
     for (let i = 0; i < 4; i++) {
-      html += `<div id=${list[i]._id} class="icons">
+      html += `<div id=${list[i]._id} class="icons" >
       <img src=${list[i].Image} class="pho" />
       <h3>${list[i].ProductsName}</h3>
       <p>Cost:Rs${list[i].Cost}</p>
@@ -49,7 +49,7 @@ async function populate(obj, ele) {
     }
   } else {
     for (let i = 0; i < 4; i++) {
-      html += `<div id=${list[i]._id} class="icons">
+      html += `<div id=${list[i]._id} class="icons" >
       <img src=${list[i].Image} />
       <h3>${list[i].ProductsName}</h3>
       <p>Cost:Rs${list[i].Cost}</p>
