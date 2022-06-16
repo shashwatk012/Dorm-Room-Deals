@@ -71,7 +71,11 @@ app.get("/", (req, res) => {
 
 //home page after login
 app.get("/home", (req, res) => {
-  res.status(200).sendFile("index1.html", { root: __dirname });
+  try {
+    res.status(200).sendFile("index1.html", { root: __dirname });
+  } catch (e) {
+    return console.log(e);
+  }
 });
 
 //products
