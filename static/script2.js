@@ -2,7 +2,7 @@ const box = document.querySelector(".box");
 
 async function populate() {
   namei = localStorage.getItem("names");
-  const requestURL = `http://localhost:3000/${namei}`;
+  const requestURL = `/${namei}`;
   const request = new Request(requestURL);
 
   const response = await fetch(request);
@@ -10,7 +10,7 @@ async function populate() {
 
   const list = JSON.parse(superHeroesText);
 
-  const requesURL = `http://localhost:3000/name/${namei}`;
+  const requesURL = `/name/${namei}`;
   const reques = new Request(requesURL);
 
   const respons = await fetch(reques);
@@ -18,7 +18,7 @@ async function populate() {
 
   const lis = JSON.parse(superHeroesTex);
 
-  const requeURL = `http://localhost:3000/brands/${namei}`;
+  const requeURL = `/brands/${namei}`;
   const reque = new Request(requeURL);
 
   const respon = await fetch(reque);

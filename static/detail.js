@@ -2,7 +2,7 @@ const detail = document.querySelector(".detail");
 
 async function populate() {
   const id = localStorage.getItem("id");
-  const requestURL = `http://localhost:3000/details/${id}`;
+  const requestURL = `/details/${id}`;
   const request = new Request(requestURL);
 
   const response = await fetch(request);
