@@ -313,8 +313,8 @@ app.get("/brands/:BrandsName", async (req, res) => {
   res.status(200).send(details);
 });
 
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(port, () => {
+  console.log(`Server running at ${port}`);
 });
 
 // app.get("/log", async (req, res) => {
