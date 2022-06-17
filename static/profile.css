@@ -1,0 +1,74 @@
+* {
+  margin: 0px;
+  scroll-behavior: smooth;
+}
+body {
+  font-size: 20px;
+}
+.navbar {
+  background-color: black;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+h1 {
+  color: white;
+  font-size: 1.3em;
+}
+.B {
+  font-size: 1.4em;
+}
+.logo {
+  background-color: red;
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 10em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto 1em;
+}
+.fulfil {
+  font-size: 0.4em;
+  font-weight: 1000;
+  text-align: right;
+  color: white;
+}
+.box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.box1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 30em;
+  background-color: #f7fff0;
+}
+.box2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 30em;
+  background-color: aliceblue;
+}
+.items {
+  display: flex;
+  margin: 1em;
+}
+.items img {
+  width: 2em;
+}
+.it {
+  margin-left: 1em;
+}
+.it h5 {
+  margin-top: 0.5em;
+  color: grey;
+}
+h2 {
+  margin: 1em auto;
+  text-align: center;
+}

@@ -1,19 +1,26 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const app = express();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
+var cookieParser = require("cookie-parser");
 const hostname = "0.0.0.0";
 const port = process.env.PORT || 3000;
 const mongoDbURL =
-  process.env.MONGODB_URL || "mongodb://localhost:27017/BECHYU";
+  process.env.MONGODB_URL ||
+  `mongodb://localhost:27017/${process.env.DATABASE}`;
 mongoose.connect(mongoDbURL, { useNEWUrlParser: true });
 
 var db = mongoose.connection;
 
 // EXPRESS SPECIFIC STUFF
 app.use("/static", express.static("static")); // For serving static files
+app.use(cookieParser());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -29,8 +36,38 @@ const SignupSchema = new mongoose.Schema({
   Phone: String,
   Password: String,
   Cpassword: String,
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
+SignupSchema.methods.tokengenerator = async function () {
+  try {
+    const token = jwt.sign(
+      { _id: this._id.toString() },
+      process.env.SECRET_KEY
+    );
+    this.tokens = this.tokens.concat({ token: token });
+    await this.save();
+    return token;
+  } catch (e) {
+    return console.log(e);
+  }
+};
+//console.log(process.env.DATABASE);
+
+SignupSchema.pre("save", async function (next) {
+  if (this.isModified("Password")) {
+    this.Password = await bcrypt.hash(this.Password, 10);
+    this.Cpassword = await bcrypt.hash(this.Cpassword, 10);
+  }
+  next();
+});
 //For issues
 const ContactSchema = new mongoose.Schema({
   Name: String,
@@ -63,16 +100,46 @@ const Sellerdetails = mongoose.model("Sellerdetails", SellerSchema);
 //home page before login
 app.get("/", (req, res) => {
   try {
+    const token = req.cookies.jwt;
+    const verify = jwt.verify(token, process.env.SECRET_KEY);
+    res.status(200).sendFile("index1.html", { root: __dirname });
+  } catch (e) {
     res.status(200).sendFile("index.html", { root: __dirname });
+  }
+});
+
+//home page after login
+app.get("/home", async (req, res) => {
+  try {
+    res.status(200).sendFile("index1.html", { root: __dirname });
+  } catch (e) {
+    return console.log(e);
+  }
+});
+app.get("/loginDetails", async (req, res) => {
+  try {
+    const token = req.cookies.jwt;
+    const verify = jwt.verify(token, process.env.SECRET_KEY);
+    const user = await Signupdetails.findOne({ _id: verify._id });
+    res.status(200).send(user);
   } catch (e) {
     return console.log(e);
   }
 });
 
-//home page after login
-app.get("/home", (req, res) => {
+app.get("/profile", async (req, res) => {
   try {
-    res.status(200).sendFile("index1.html", { root: __dirname });
+    const token = req.cookies.jwt;
+    const verify = jwt.verify(token, process.env.SECRET_KEY);
+    const user = await Signupdetails.findOne({ _id: verify._id });
+    const params = {
+      Fill: user.Name,
+      Fill1: user.Name,
+      Fill2: user.Username,
+      Fill3: user.Email,
+      Fill4: user.Phone,
+    };
+    res.status(200).render("profile.pug", params);
   } catch (e) {
     return console.log(e);
   }
@@ -84,6 +151,82 @@ app.get("/products", async (req, res) => {
 });
 app.get("/details", async (req, res) => {
   res.status(200).sendFile("detail.html", { root: __dirname });
+});
+
+//signup
+app.get("/signup", (req, res) => {
+  res.status(200).render("signup.pug");
+});
+
+app.post("/signup", async (req, res) => {
+  try {
+    const email = req.body.Email;
+    const Username = req.body.Username;
+    const phone = req.body.Phone;
+    const name = req.body.Name;
+    const password = req.body.Password;
+    const cpassword = req.body.Cpassword;
+    if (
+      email === "" ||
+      phone === "" ||
+      name === "" ||
+      password === "" ||
+      cpassword === "" ||
+      Username === ""
+    ) {
+      const params = {
+        Fill: "Fill the required Details",
+      };
+      res.status(200).render("signup.pug", params);
+    } else if (password !== cpassword) {
+      const params = {
+        Fill: "Passwords are different",
+      };
+      res.status(200).render("signup.pug", params);
+    } else if (phone.length < 10 && phone.length > 11) {
+      const params = {
+        Fill: "Phone number is invalid",
+      };
+      res.status(200).render("signup.pug", params);
+    } else {
+      const registeredEmail = await Signupdetails.findOne({
+        Email: email,
+      });
+      const registeredPhone = await Signupdetails.findOne({
+        Phone: phone,
+      });
+      if (registeredEmail === null && registeredPhone === null) {
+        const myData = new Signupdetails(req.body);
+        const token = await myData.tokengenerator();
+        // res.cookie("jwt", token, {
+        //   expires: new Date(Date.now() + 30000),
+        //   httpOnly: true,
+        // });
+        res.cookie("jwt", token, {
+          expires: new Date(Date.now() + 86400000),
+          httpOnly: true,
+        });
+        // console.log(cookie);
+        myData.save((err, k) => {
+          if (err) {
+            return console.log("err");
+          } else {
+            const params = {
+              Fill: "You have been registered. Try Login Now!",
+            };
+            return res.status(200).render("login.pug", params);
+          }
+        });
+      } else {
+        const params = {
+          Fill: "Phone number or Email already registered! Try Log in",
+        };
+        res.status(200).render("signup.pug", params);
+      }
+    }
+  } catch (error) {
+    return console.log("lawda");
+  }
 });
 //seller
 app.get("/seller", (req, res) => {
@@ -156,85 +299,23 @@ app.post("/login", async (req, res) => {
       const loginEmail = await Signupdetails.findOne({
         Email: email,
       });
-      const loginPassword = await Signupdetails.findOne({
-        Password: password,
-      });
       if (loginEmail === null) {
         const params = {
           Fill: "Email id is not registered",
         };
         res.status(200).render("login.pug", params);
-      } else if (loginEmail.Password !== password) {
+      } else if (!(await bcrypt.compare(password, loginEmail.Password))) {
         const params = {
           Fill: "Invalid credentials",
         };
         res.status(200).render("login.pug", params);
       } else {
-        res.status(200).sendFile("index1.html", { root: __dirname });
-      }
-    }
-  } catch (error) {
-    return console.log("lawda");
-  }
-});
-
-//signup
-app.get("/signup", (req, res) => {
-  res.status(200).render("signup.pug");
-});
-
-app.post("/signup", async (req, res) => {
-  try {
-    const email = req.body.Email;
-    const phone = req.body.Phone;
-    const name = req.body.Name;
-    const password = req.body.Password;
-    const cpassword = req.body.Cpassword;
-    if (
-      email === "" ||
-      phone === "" ||
-      name === "" ||
-      password === "" ||
-      cpassword === ""
-    ) {
-      const params = {
-        Fill: "Fill the required Details",
-      };
-      res.status(200).render("signup.pug", params);
-    } else if (password !== cpassword) {
-      const params = {
-        Fill: "Passwords are different",
-      };
-      res.status(200).render("signup.pug", params);
-    } else if (phone.length < 10) {
-      const params = {
-        Fill: "Phone number is invalid",
-      };
-      res.status(200).render("signup.pug", params);
-    } else {
-      const registeredEmail = await Signupdetails.findOne({
-        Email: email,
-      });
-      const registeredPhone = await Signupdetails.findOne({
-        Phone: phone,
-      });
-      if (registeredEmail === null && registeredPhone === null) {
-        const myData = new Signupdetails(req.body);
-        myData.save((err, k) => {
-          if (err) {
-            return console.log("err");
-          } else {
-            const params = {
-              Fill: "You have been registered. Try Login Now!",
-            };
-            return res.status(200).render("login.pug", params);
-          }
+        const token = await loginEmail.tokengenerator();
+        res.cookie("jwt", token, {
+          expires: new Date(Date.now() + 86400000),
+          httpOnly: true,
         });
-      } else {
-        const params = {
-          Fill: "Already registered! Try Log in",
-        };
-        res.status(200).render("signup.pug", params);
+        res.status(200).sendFile("index1.html", { root: __dirname });
       }
     }
   } catch (error) {
