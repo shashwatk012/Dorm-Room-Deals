@@ -130,7 +130,7 @@ app.get("/loginDetails", async (req, res) => {
 app.get("/profile", async (req, res) => {
   try {
     const token = req.cookies.jwt;
-    const verify = jwt.verify(token, process.env.SECRET_KEY);
+    const verify = jwt.verify(token, "mynameisxyzemailidxyzphonenumberxyz");
     const user = await Signupdetails.findOne({ _id: verify._id });
     const params = {
       Fill: user.Name,
