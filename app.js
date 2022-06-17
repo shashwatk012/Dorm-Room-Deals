@@ -50,7 +50,7 @@ SignupSchema.methods.tokengenerator = async function () {
   try {
     const token = jwt.sign(
       { _id: this._id.toString() },
-      process.env.SECRET_KEY
+      "mynameisxyzemailidxyzphonenumberxyz"
     );
     this.tokens = this.tokens.concat({ token: token });
     await this.save();
@@ -101,7 +101,7 @@ const Sellerdetails = mongoose.model("Sellerdetails", SellerSchema);
 app.get("/", (req, res) => {
   try {
     const token = req.cookies.jwt;
-    const verify = jwt.verify(token, process.env.SECRET_KEY);
+    const verify = jwt.verify(token, "mynameisxyzemailidxyzphonenumberxyz");
     res.status(200).sendFile("index1.html", { root: __dirname });
   } catch (e) {
     res.status(200).sendFile("index.html", { root: __dirname });
@@ -119,7 +119,7 @@ app.get("/home", async (req, res) => {
 app.get("/loginDetails", async (req, res) => {
   try {
     const token = req.cookies.jwt;
-    const verify = jwt.verify(token, process.env.SECRET_KEY);
+    const verify = jwt.verify(token, "mynameisxyzemailidxyzphonenumberxyz");
     const user = await Signupdetails.findOne({ _id: verify._id });
     res.status(200).send(user);
   } catch (e) {
