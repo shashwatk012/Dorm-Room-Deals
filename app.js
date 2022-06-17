@@ -48,7 +48,7 @@ const SignupSchema = new mongoose.Schema({
 
 SignupSchema.methods.tokengenerator = async function () {
   try {
-    const token = jwt.sign(
+    const token = await jwt.sign(
       { _id: this._id.toString() },
       process.env.SECRET_KEY
     );
