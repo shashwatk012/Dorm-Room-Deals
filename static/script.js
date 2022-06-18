@@ -69,8 +69,6 @@ async function populate(obj, ele) {
 
 populate("mobile", 0);
 populate("bicycle", 1);
-populate("sports", 2);
-populate("cooler", 3);
 
 const item = document.querySelectorAll(".items");
 const warn = document.querySelector(".warn");
