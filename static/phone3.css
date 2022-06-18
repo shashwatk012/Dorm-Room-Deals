@@ -33,11 +33,15 @@
 .pro {
   position: absolute;
   right: 2em;
-  top: 1.5em;
+  top: 1em;
+}
+.nav {
+  margin-left: -1.8em;
 }
 .search {
   margin-left: 2em;
-  padding: 1em;
+  margin-bottom: 2em;
+  padding: 0em;
 }
 .product {
   display: grid;
@@ -53,4 +57,7 @@
 }
 h3 {
   font-size: 0.8em;
+}
+.search {
+  margin-left: -1em;
 }

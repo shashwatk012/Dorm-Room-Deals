@@ -48,7 +48,7 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto 1em;
+  margin: auto 0.4em;
 }
 .fulfil {
   font-size: 0.4em;
