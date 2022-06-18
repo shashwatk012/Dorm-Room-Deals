@@ -1,6 +1,6 @@
 const profile = document.querySelector(".profile");
 
-async function populate() {
+async function populat() {
   const requestURL = `/loginDetails`;
   const request = new Request(requestURL);
 
@@ -8,10 +8,10 @@ async function populate() {
   const superHeroesText = await response.text();
 
   const list = JSON.parse(superHeroesText);
-  profile.value = list.Name;
+  profile.textContent = list.Name;
 }
 
-populate();
+populat();
 
 seller = document.querySelector(".seller");
 
@@ -32,23 +32,14 @@ async function populate(obj, ele) {
   //console.log(list);
 
   let html = "";
-  if (ele == 1) {
-    for (let i = 0; i < 4; i++) {
-      html += `<div id=${list[i]._id} class="icons">
-      <img src=${list[i].Image} class="pho" />
-      <h3>${list[i].ProductsName}</h3>
-      <p>Cost:Rs${list[i].Cost}</p>
+  list.forEach((element) => {
+    html += `<div id=${element._id} class="icons">
+      <img src=${element.Image} />
+      <h3>${element.ProductsName}</h3>
+      <p>Cost:Rs${element.Cost}</p>
     </div>`;
-    }
-  } else {
-    for (let i = 0; i < 4; i++) {
-      html += `<div id=${list[i]._id} class="icons">
-      <img src=${list[i].Image} />
-      <h3>${list[i].ProductsName}</h3>
-      <p>Cost:Rs${list[i].Cost}</p>
-    </div>`;
-    }
-  }
+  });
+
   product[ele].innerHTML = html;
   const icons = document.querySelectorAll(".icons");
   icons.forEach((element) => {
@@ -60,7 +51,7 @@ async function populate(obj, ele) {
 }
 
 populate("mobile", 0);
-populate("bicycle", 1);
+// populate("bicycle", 1);
 // populate("sports", 2);
 // populate("cooler", 3);
 
