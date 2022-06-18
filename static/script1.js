@@ -75,12 +75,29 @@ item.forEach((element) => {
   });
 });
 
+const inpu = document.querySelector(".inpu");
+document.addEventListener(
+  "keydown",
+  (event) => {
+    const input = inpu.value;
+    if (input !== "") {
+      var name = event.key;
+      var code = event.code;
+      if (name === "Enter") {
+        localStorage.setItem("names", input);
+        location.href = "/products";
+      }
+    }
+  },
+  false
+);
 const Search = document.querySelector(".Searc");
 Search.addEventListener("click", () => {
-  const input = document.querySelector(".inpu").value;
-  console.log(input);
-  localStorage.setItem("names", input);
-  location.href = "/products";
+  const input = inpu.value;
+  if (input !== "") {
+    localStorage.setItem("names", input);
+    location.href = "/products";
+  }
 });
 const pro = document.querySelector(".pro");
 pro.addEventListener("click", () => {
