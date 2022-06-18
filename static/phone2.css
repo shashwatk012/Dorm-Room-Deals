@@ -1,0 +1,18 @@
+.search {
+  margin-left: -15em;
+}
+.product {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  /* border: 2px solid red; */
+}
+.icons {
+  width: 13em;
+  height: 16em;
+}
+.icons img {
+  height: 8em;
+}
+h3 {
+  font-size: 0.8em;
+}

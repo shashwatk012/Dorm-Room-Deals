@@ -1,0 +1,56 @@
+.items img {
+  width: 3em;
+}
+.search {
+  margin-left: -20em;
+}
+.products {
+  margin: 0.4em;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+}
+#navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 10em;
+}
+#navbar ul {
+  margin-left: 19em;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+  font-size: 1em;
+}
+#navbar ul li {
+  width: 7em;
+}
+.seller {
+  position: absolute;
+  left: 2em;
+  top: 2em;
+}
+.pro {
+  position: absolute;
+  right: 2em;
+  top: 1.5em;
+}
+.search {
+  margin-left: 2em;
+  padding: 1em;
+}
+.product {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  /* border: 2px solid red; */
+}
+.icons {
+  width: 10em;
+  height: 14em;
+}
+.icons img {
+  height: 8em;
+}
+h3 {
+  font-size: 0.8em;
+}

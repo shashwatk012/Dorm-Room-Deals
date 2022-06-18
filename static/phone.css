@@ -1,0 +1,6 @@
+.box {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  margin-top: 2em;
+  /* border: 2px solid red; */
+}

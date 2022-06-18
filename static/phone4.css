@@ -1,0 +1,71 @@
+.products {
+  margin: 0.4em;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+}
+.icons {
+  width: 7em;
+  height: 11em;
+}
+.icons img {
+  height: 6em;
+}
+h3 {
+  font-size: 0.5em;
+}
+.icons p {
+  font-size: 0.7em;
+}
+.pro {
+  position: absolute;
+  right: 0.3em;
+  top: 1em;
+}
+.seller {
+  position: absolute;
+  left: 0.2em;
+  top: 3em;
+  font-size: 0.6em;
+}
+.B {
+  font-size: 1em;
+}
+.logo {
+  width: 1.5em;
+  height: 1.5em;
+}
+.Bechyu h1 {
+  font-size: 1em;
+}
+.fulfil {
+  font-size: 0.3em;
+}
+.items {
+  margin: 0px;
+}
+.cont {
+  font-size: 1em;
+}
+.myForm {
+  width: 90vw;
+}
+.myForm input {
+  padding: 7px;
+  margin: 15px auto;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 40%;
+  font-size: 10px;
+}
+.btn {
+  padding: 5px;
+  margin: 15px auto;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 15%;
+  font-size: 10px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  box-shadow: 0.5px 0.5px black, -0.5px -0.5px black;
+}

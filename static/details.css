@@ -44,10 +44,10 @@ h2 {
 }
 .detail {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, auto);
 }
 .img {
-  width: 43em;
+  width: 38em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,13 +62,13 @@ h2 {
 }
 h3 {
   font-size: 2em;
-  margin: 0.5em auto;
+  margin-bottom: 0.4em;
 }
 .inform {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 h2 {
   font-size: 2em;
@@ -77,4 +77,5 @@ h6 {
   font-size: 1em;
   padding-left: 2em;
   padding-right: 2em;
+  margin-bottom: 1em;
 }

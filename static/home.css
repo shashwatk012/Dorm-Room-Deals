@@ -6,6 +6,9 @@ body {
   font-size: 20px;
   /* background: url("../static/bg1.jpg") center top/ cover; */
 }
+.nav {
+  display: flex;
+}
 #navbar {
   background-color: black;
   padding: 10px;
