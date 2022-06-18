@@ -32,16 +32,12 @@ async function populate(obj, ele) {
   //console.log(list);
 
   let html = "";
-  let i = 0;
   list.forEach((element) => {
-    if (i < 4) {
-      html += `<div id=${element._id} class="icons">
+    html += `<div id=${element._id} class="icons">
       <img src=${element.Image} />
       <h3>${element.ProductsName}</h3>
       <p>Cost:Rs${element.Cost}</p>
     </div>`;
-    }
-    i++;
   });
 
   product[ele].innerHTML = html;
