@@ -51,7 +51,7 @@ SignupSchema.methods.tokengenerator = async function () {
     const token = jwt.sign(
       { _id: this._id.toString() },
       "mynameisxyzemailidxyzphonenumberxyz"
-    );
+    ); //we could use the secretkey as a env file but heroku does not support
     this.tokens = this.tokens.concat({ token: token });
     await this.save();
     return token;

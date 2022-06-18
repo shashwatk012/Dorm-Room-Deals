@@ -12,7 +12,7 @@ async function populate() {
 
   let html = "";
   list.forEach((element) => {
-    html += `<img src=${element.Image} alt="" />
+    html += `<div class="img"><img src=${element.Image} alt="" /><h2>${element.ProductsName}</h2></div>
     <div class="inform">
       <h2>${element.ProductsName}</h2>
       <h3>Cost:Rs${element.Cost}</h3>
@@ -42,24 +42,6 @@ async function populate() {
         culpa. Voluptates temporibus nemo sequi iure cupiditate, voluptatem
         accusantium? Dicta, molestiae rerum ut aliquam facilis suscipit et a
         nulla praesentium perspiciatis? Fugiat error obcaecati nihil dolore
-        est perferendis, qui omnis excepturi. Provident aliquam accusantium
-        quia iste iusto magnam voluptatum earum, repudiandae fugiat alias
-        tenetur voluptate suscipit eius accusamus nulla tempora ipsa
-        praesentium error nobis placeat voluptatibus expedita quasi eum.
-        Veniam, fugit. Perferendis possimus expedita nostrum alias deserunt
-        totam nihil voluptatibus in reiciendis cupiditate laudantium quo nam
-        placeat enim accusamus labore provident quia, illo dolorem aliquam
-        ducimus nemo. Accusantium tempore deserunt dolores! Ab temporibus
-        harum minus quaerat maxime quo consectetur quis ad accusantium, iste
-        tenetur ipsa nulla at cupiditate earum, laborum quam assumenda
-        reprehenderit officiis rem quia? Nam nemo dolorum harum ut? Ipsa rerum
-        natus architecto tempore sint. Minus, est consequatur molestiae ullam
-        sequi consectetur veniam sapiente, mollitia tempore recusandae quis
-        autem expedita eveniet nihil quibusdam nisi laborum saepe repudiandae.
-        Perspiciatis, voluptas. Consequuntur similique magni quae? Reiciendis
-        non eaque veritatis ducimus facilis laudantium fugiat nostrum tempore
-        assumenda velit amet et aut perspiciatis id doloribus, iusto ad error
-        nobis, cupiditate maiores. Ipsum, expedita. Amet est facere fugit
       </h6>
     </div>`;
   });
