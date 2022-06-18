@@ -141,7 +141,7 @@ app.get("/profile", async (req, res) => {
     };
     res.status(200).render("profile.pug", params);
   } catch (e) {
-    res.status(200).render("login.pug");
+    res.status(200).sendFile("index.html", { root: __dirname });
   }
 });
 
