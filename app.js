@@ -141,7 +141,7 @@ app.get("/profile", async (req, res) => {
     };
     res.status(200).render("profile.pug", params);
   } catch (e) {
-    return console.log(e);
+    res.status(200).render("login.pug");
   }
 });
 
@@ -280,6 +280,9 @@ app.post("/seller", (req, res) => {
     return console.log("lawda");
   }
 });
+app.get("/logout", (req, res) => {
+  res.status(200).render("login.pug");
+});
 
 //login
 app.get("/login", (req, res) => {
@@ -312,17 +315,9 @@ app.post("/login", async (req, res) => {
         res.status(200).render("login.pug", params);
       } else {
         const token = await loginEmail.tokengenerator();
-        if (check === "on") {
-          res.cookie("jwt", token, {
-            expires: new Date(Date.now() + 86400000),
-            httpOnly: true,
-          });
-        } else {
-          res.cookie("jwt", token, {
-            expires: new Date(Date.now() + 30000),
-            httpOnly: true,
-          });
-        }
+        res.cookie("jwt", token, {
+          httpOnly: true,
+        });
         res.status(200).sendFile("index1.html", { root: __dirname });
       }
     }
