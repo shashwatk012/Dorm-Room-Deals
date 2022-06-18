@@ -2,51 +2,37 @@ const box = document.querySelector(".box");
 
 async function populate() {
   namei = localStorage.getItem("names");
-  const requestURL = `/${namei}`;
+  console.log(namei);
+  const requestURL = `/ProdutsName`;
   const request = new Request(requestURL);
 
   const response = await fetch(request);
   const superHeroesText = await response.text();
 
   const list = JSON.parse(superHeroesText);
-
-  const requesURL = `/name/${namei}`;
-  const reques = new Request(requesURL);
-
-  const respons = await fetch(reques);
-  const superHeroesTex = await respons.text();
-
-  const lis = JSON.parse(superHeroesTex);
-
-  const requeURL = `/brands/${namei}`;
-  const reque = new Request(requeURL);
-
-  const respon = await fetch(reque);
-  const superHeroesTe = await respon.text();
-
-  const li = JSON.parse(superHeroesTe);
+  console.log(list);
 
   let html = "";
   list.forEach((element) => {
-    html += `<div id=${element._id} class="icons">
+    if (element.ProductsName.toLowerCase().includes(namei)) {
+      html += `<div id=${element._id} class="icons">
       <img src=${element.Image} />
       <h3>${element.ProductsName}</h3>
       <p>Cost:Rs${element.Cost}</p>
     </div>`;
-  });
-  lis.forEach((element) => {
-    html += `<div id=${element._id} class="icons">
+    } else if (element.Type.toLowerCase().includes(namei)) {
+      html += `<div id=${element._id} class="icons">
       <img src=${element.Image} />
       <h3>${element.ProductsName}</h3>
       <p>Cost:Rs${element.Cost}</p>
     </div>`;
-  });
-  li.forEach((element) => {
-    html += `<div id=${element._id} class="icons">
+    } else if (element.BrandsName.toLowerCase().includes(namei)) {
+      html += `<div id=${element._id} class="icons">
       <img src=${element.Image} />
       <h3>${element.ProductsName}</h3>
       <p>Cost:Rs${element.Cost}</p>
     </div>`;
+    }
   });
   if (html === "") {
     html = `<h1 class="sorry" >Sorry! NO results found</h1>`;

@@ -79,7 +79,7 @@ document.addEventListener(
       var name = event.key;
       var code = event.code;
       if (name === "Enter") {
-        localStorage.setItem("names", input);
+        localStorage.setItem("names", input.toLowerCase());
         location.href = "/products";
       }
     }
@@ -90,7 +90,7 @@ const Search = document.querySelector(".Searc");
 Search.addEventListener("click", () => {
   const input = inpu.value;
   if (input !== "") {
-    localStorage.setItem("names", input);
+    localStorage.setItem("names", input.toLowerCase());
     location.href = "/products";
   }
 });

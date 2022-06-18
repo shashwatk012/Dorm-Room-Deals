@@ -369,6 +369,11 @@ app.post("/contact", async (req, res) => {
     return console.log("lawda");
   }
 });
+app.get("/ProdutsName", async (req, res) => {
+  const id = req.params.ProdutsName;
+  const details = await Sellerdetails.find();
+  res.status(200).send(details);
+});
 app.get("/:Type", async (req, res) => {
   const type = req.params.Type;
   const Mobiles = await Sellerdetails.find({
@@ -380,20 +385,6 @@ app.get("/details/:id", async (req, res) => {
   const id = req.params.id;
   const details = await Sellerdetails.find({
     _id: id,
-  });
-  res.status(200).send(details);
-});
-app.get("/name/:ProdutsName", async (req, res) => {
-  const id = req.params.ProdutsName;
-  const details = await Sellerdetails.find({
-    ProductsName: id,
-  });
-  res.status(200).send(details);
-});
-app.get("/brands/:BrandsName", async (req, res) => {
-  const id = req.params.BrandsName;
-  const details = await Sellerdetails.find({
-    BrandsName: id,
   });
   res.status(200).send(details);
 });
