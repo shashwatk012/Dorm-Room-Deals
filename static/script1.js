@@ -8,7 +8,7 @@ async function populate() {
   const superHeroesText = await response.text();
 
   const list = JSON.parse(superHeroesText);
-  profile.textContent = list.Name;
+  profile.value = list.Name;
 }
 
 populate();
