@@ -290,6 +290,7 @@ app.post("/login", async (req, res) => {
   try {
     const email = req.body.Email;
     const password = req.body.Password;
+    const check = req.body.checkbox;
     if (email === "" || password === "") {
       const params = {
         Fill: "Fill the required Details",
@@ -311,10 +312,21 @@ app.post("/login", async (req, res) => {
         res.status(200).render("login.pug", params);
       } else {
         const token = await loginEmail.tokengenerator();
-        res.cookie("jwt", token, {
-          expires: new Date(Date.now() + 86400000),
-          httpOnly: true,
-        });
+        if (check === "on") {
+          res.cookie("jwt", token, {
+            expires: new Date(Date.now() + 86400000),
+            httpOnly: true,
+          });
+        } else {
+          res.cookie("jwt", token, {
+            expires: new Date(Date.now() + 30000),
+            httpOnly: true,
+          });
+        }
+        // res.cookie("jwt", token, {
+        //   expires: new Date(Date.now() + 86400000),
+        //   httpOnly: true,
+        // });
         res.status(200).sendFile("index1.html", { root: __dirname });
       }
     }

@@ -97,3 +97,14 @@ h2 {
   color: red;
   margin-bottom: 1em;
 }
+.label {
+  display: flex;
+}
+#check {
+  margin-left: -25em;
+}
+.label label {
+  margin-left: -10em;
+    font-size: .8em;
+}
+}
