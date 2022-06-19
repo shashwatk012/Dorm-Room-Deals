@@ -9,13 +9,13 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 .return a {
   color: blue;
 }
 .return h1 {
-  margin-bottom: 20px;
+  margin-top: 4em;
+  margin-bottom: 1em;
 }
 h1 {
   color: white;
@@ -46,7 +46,5 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 74px;
-  left: 44%;
+  margin-top: 4em;
 }
