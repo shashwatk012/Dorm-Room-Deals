@@ -15,3 +15,9 @@
   justify-content: center;
   align-items: center;
 }
+.hidden {
+  display: none;
+}
+.h6 {
+  font-size: 0.7em;
+}

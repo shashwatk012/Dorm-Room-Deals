@@ -3,13 +3,13 @@
   height: 21em;
 }
 h2 {
-  font-size: 1.5em;
+  font-size: 1em;
 }
 h3 {
-  font-size: 1.5em;
+  font-size: 1em;
 }
 h6 {
-  font-size: 0.9em;
+  font-size: 0.7em;
 }
 .img {
   width: 20em;
@@ -17,4 +17,7 @@ h6 {
   flex-direction: column;
   align-items: center;
   margin-top: 2em;
+}
+.img h2 {
+  font-size: 1em;
 }

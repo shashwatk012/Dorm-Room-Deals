@@ -12,7 +12,7 @@ async function populate() {
 
   let html = "";
   list.forEach((element) => {
-    html += `<div class="img"><img src=${element.Image} alt="" /><h2>${element.ProductsName}</h2></div>
+    html += `<div class="img"><img src=${element.Image} alt="" /><h2 class="hidden">${element.ProductsName}</h2></div>
     <div class="inform">
       <h2>${element.ProductsName}</h2>
       <h3>Cost:Rs${element.Cost}</h3>
