@@ -119,9 +119,13 @@ app.get("/home", async (req, res) => {
 app.get("/loginDetails", async (req, res) => {
   try {
     const token = req.cookies.jwt;
-    const verify = jwt.verify(token, "mynameisxyzemailidxyzphonenumberxyz");
-    const user = await Signupdetails.findOne({ _id: verify._id });
-    res.status(200).send(user);
+    if (token === undefined) {
+      res.status(200).send({ Name: "Error" });
+    } else {
+      const verify = jwt.verify(token, "mynameisxyzemailidxyzphonenumberxyz");
+      const user = await Signupdetails.findOne({ _id: verify._id });
+      res.status(200).send(user);
+    }
   } catch (e) {
     return console.log(e);
   }
@@ -287,6 +291,12 @@ app.get("/logout", (req, res) => {
 //login
 app.get("/login", (req, res) => {
   res.status(200).render("login.pug");
+});
+app.get("/log-in", (req, res) => {
+  const params = {
+    Fill: "Session-Expired! Login again",
+  };
+  res.status(200).render("login.pug", params);
 });
 
 app.post("/login", async (req, res) => {

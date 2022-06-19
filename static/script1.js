@@ -8,7 +8,11 @@ async function populat() {
   const superHeroesText = await response.text();
 
   const list = JSON.parse(superHeroesText);
-  profile.textContent = list.Name;
+  if (list.Name === "Error") {
+    location.href = "/log-in";
+  } else {
+    profile.textContent = list.Name;
+  }
 }
 
 populat();

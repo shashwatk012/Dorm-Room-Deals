@@ -59,6 +59,7 @@ h2 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 83%;
 }
 #form input {
   width: 55%;
@@ -68,7 +69,7 @@ h2 {
   margin-bottom: 2em;
 }
 #form1 input {
-  width: 188%;
+  width: 80%;
   padding: 0.5em;
   border: 1px solid #706b6b;
   border-radius: 0.7em;
