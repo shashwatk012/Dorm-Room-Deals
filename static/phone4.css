@@ -8,7 +8,8 @@
   height: 11em;
 }
 .icons img {
-  height: 6em;
+  height: 5.5em;
+  width: 3em;
 }
 h3 {
   font-size: 0.5em;
@@ -70,10 +71,18 @@ h3 {
   box-shadow: 0.5px 0.5px black, -0.5px -0.5px black;
 }
 .search input {
-  width: 10em;
+  width: 8em;
 }
 .nav {
   position: absolute;
   top: 1.3em;
   left: 2em;
+}
+.navi {
+  position: absolute;
+  top: 0.7em;
+  left: 40%;
+}
+.search button {
+  font-size: 0.6em;
 }

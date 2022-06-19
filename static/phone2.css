@@ -16,3 +16,9 @@
 h3 {
   font-size: 0.8em;
 }
+.search {
+  margin-left: -17em;
+}
+.warn {
+  left: 24%;
+}

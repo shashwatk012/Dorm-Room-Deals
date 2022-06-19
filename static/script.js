@@ -39,28 +39,21 @@ async function populate(obj, ele) {
   console.log(list);
 
   let html = "";
-  if (ele == 1) {
-    for (let i = 0; i < 4; i++) {
-      html += `<div id=${list[i]._id} class="icons" >
-      <img src=${list[i].Image} class="pho" />
-      <h3>${list[i].ProductsName}</h3>
-      <p>Cost:Rs${list[i].Cost}</p>
+  let i = 0;
+  list.forEach((element) => {
+    if (i < 4) {
+      html += `<div id=${element._id} class="icons">
+      <img src=${element.Image} />
+      <h3>${element.ProductsName}</h3>
+      <p>Cost:Rs${element.Cost}</p>
     </div>`;
     }
-  } else {
-    for (let i = 0; i < 4; i++) {
-      html += `<div id=${list[i]._id} class="icons" >
-      <img src=${list[i].Image} />
-      <h3>${list[i].ProductsName}</h3>
-      <p>Cost:Rs${list[i].Cost}</p>
-    </div>`;
-    }
-  }
+    i++;
+  });
   product[ele].innerHTML = html;
   const icons = document.querySelectorAll(".icons");
   icons.forEach((element) => {
     element.addEventListener("click", () => {
-      console.log(element.id);
       warn.classList.remove("hidden");
     });
   });
@@ -71,7 +64,7 @@ populate("mobile", 0);
 populate("bicycle", 1);
 
 const item = document.querySelectorAll(".items");
-const warn = document.querySelector(".warn");
+const warn = document.querySelector(".boxi");
 const img = document.querySelector(".img");
 //const icons = document.querySelectorAll(".icons");
 const btn = document.querySelector(".btn");

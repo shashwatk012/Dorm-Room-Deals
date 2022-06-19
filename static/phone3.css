@@ -61,3 +61,13 @@ h3 {
 .search {
   margin-left: -1em;
 }
+.warn {
+  width: 17em;
+  height: 16em;
+}
+.Please {
+  font-size: 0.7em;
+}
+.a {
+  font-size: 0.7em;
+}
