@@ -23,7 +23,7 @@ async function populate() {
       <h3>Product's Details</h3>
       <h6>${element.Type}</h6>
       <h6>Brand's Name:${element.BrandsName}</h6>
-      <h6>Old: ${element.Age} years</h6>
+      <h6>Old: ${element.Age}</h6>
       <h3>More details</h3>
       <h6>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime vitae

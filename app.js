@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 var cookieParser = require("cookie-parser");
+const multer = require("multer");
 const hostname = "0.0.0.0";
 const port = process.env.PORT || 3000;
 const mongoDbURL =
@@ -19,6 +20,7 @@ var db = mongoose.connection;
 
 // EXPRESS SPECIFIC STUFF
 app.use("/static", express.static("static")); // For serving static files
+// app.use("./public/data/uploads", express.static("static"));
 app.use(cookieParser());
 
 app.use(express.json());
@@ -86,7 +88,7 @@ const SellerSchema = new mongoose.Schema({
   Address: String,
   ProductsName: String,
   Type: String,
-  Age: Number,
+  Age: String,
   Image: String,
   Cost: Number,
 });
@@ -236,55 +238,90 @@ app.post("/signup", async (req, res) => {
 app.get("/seller", (req, res) => {
   res.status(200).render("seller.pug");
 });
-app.post("/seller", (req, res) => {
-  try {
-    const email = req.body.Email;
-    const phone = req.body.Phone;
-    const name = req.body.Name;
-    const address = req.body.Address;
-    const image = req.body.Image;
-    const cost = req.body.Cost;
-    const age = req.body.Age;
-    const productsname = req.body.ProductsName;
-    const type = req.body.Type;
-    if (
-      email === "" ||
-      phone === "" ||
-      name === "" ||
-      address === "" ||
-      image === "" ||
-      cost === "" ||
-      productsname === "" ||
-      type === "" ||
-      age === ""
-    ) {
-      const params = {
-        Fill: "Fill the required Details",
-      };
-      res.status(200).render("seller.pug", params);
-    } else if (phone.length < 10) {
-      const params = {
-        Fill: "Phone number is invalid",
-      };
-      res.status(200).render("seller.pug", params);
-    } else {
-      const myData = new Sellerdetails(req.body);
-      myData.save((err, k) => {
-        if (err) {
-          return console.log("err");
-        } else {
-          const params = {
-            Fill: "Your product's data has been saved. Buyer will contact you soon!",
-          };
-          return res.status(200).render("contact.pug", params);
-        }
-      });
-    }
-  } catch (error) {
-    return console.log("lawda");
+// const upload = multer({ dest: "./public/data/uploads/" });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./public/data/uploads/");
+  },
+
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  // limits: {
+  //   fieldSize: 1024 * 1024 * 3,
+  // },
+});
+app.post("/seller", upload.single("uploaded_file"), async function (req, res) {
+  // req.file is the name of your file in the form above, here 'uploaded_file'
+  // req.body will hold the text fields, if there were any
+  console.log(req.file, req.body);
+  const email = req.body.Email;
+  const phone = req.body.Phone;
+  const name = req.body.Name;
+  const address = req.body.Address;
+  const image = req.file.filename;
+  console.log(image);
+  const cost = req.body.Cost;
+  const age = req.body.Age;
+  const productsname = req.body.ProductsName;
+  const type = req.body.Type;
+  const brandsName = req.body.BrandsName;
+  if (
+    email === "" ||
+    phone === "" ||
+    name === "" ||
+    address === "" ||
+    cost === "" ||
+    productsname === "" ||
+    type === "" ||
+    age === "" ||
+    brandsName === ""
+  ) {
+    const params = {
+      Fill: "Fill the required Details",
+    };
+    res.status(200).render("seller.pug", params);
+  } else if (phone.length < 10) {
+    const params = {
+      Fill: "Phone number is invalid",
+    };
+    res.status(200).render("seller.pug", params);
+  } else {
+    const myData = new Sellerdetails({
+      Name: name,
+      BrandsName: brandsName,
+      Phone: phone,
+      Email: email,
+      Address: address,
+      ProductsName: productsname,
+      Type: type,
+      Age: age,
+      Image: image,
+      Cost: cost,
+    });
+    const data = await myData.save();
+    const params = {
+      Fill: "Your data has been saved successfully! Buyer will contact you soon",
+    };
+    res.status(200).render("contact.pug", params);
   }
 });
-app.get("/logout", (req, res) => {
+// app.post("/seller", (req, res) => {
+//
+// });
+app.get("/logout", async (req, res) => {
+  const token = req.cookies.jwt;
+  const verify = jwt.verify(token, "mynameisxyzemailidxyzphonenumberxyz");
+  const user = await Signupdetails.findOne({ _id: verify._id });
+  res.clearCookie("jwt");
+  user.tokens = user.tokens.filter((currentCookie) => {
+    return currentCookie.token !== token;
+  });
+  await user.save();
   res.status(200).render("login.pug");
 });
 

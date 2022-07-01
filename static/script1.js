@@ -33,16 +33,16 @@ async function populate(obj, ele) {
   const superHeroesText = await response.text();
 
   const list = JSON.parse(superHeroesText);
-  //console.log(list);
+  // console.log(list);
 
   let html = "";
   let i = 0;
   list.forEach((element) => {
     if (i < 4) {
       html += `<div id=${element._id} class="icons">
-      <img src=${element.Image} />
+      <img src="../public/data/uploads/${element.Image}" />
       <h3>${element.ProductsName}</h3>
-      <p>Cost:Rs${element.Cost}</p>
+      <p>Cost:Rs${element.cost}</p>
     </div>`;
     }
     i++;

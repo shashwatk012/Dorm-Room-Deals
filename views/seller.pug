@@ -10,7 +10,7 @@ block content
   div.big
       div.signup 
         h2 Sell your Product
-        form(action="/seller" method="post" id="form")
+        form(action="/seller" method="post" enctype="multipart/form-data" id="form")
           h3 Owner's details
           input(type="text" placeholder="Name" name="Name")
           input(type="email" placeholder="Email" name="Email")
@@ -20,8 +20,8 @@ block content
           input(type="text" placeholder="Products Name" name="ProductsName")
           input(type="text" placeholder="Brand's Name" name="BrandsName")  
           input(type="text" placeholder="Type: eg.Mobiles/bicycle/cooler" name="Type")
-          input(type="number" placeholder="Age of product" name="Age")
-          input(type="image-link" placeholder="Image address" name="Image")
-          input(type="number" placeholder="Cost of product" name="Cost")
-          input(type="submit" id="submit") 
+          input(type="text" placeholder="Age of product(eg.1year/6months)" name="Age")
+          input(type="file" placeholder="Image address" name="uploaded_file")
+          input(type="number" min='0' placeholder="Cost of product" name="Cost")
+          input(type="submit" value="upload" id="submit") 
         p.fill #{Fill} 
