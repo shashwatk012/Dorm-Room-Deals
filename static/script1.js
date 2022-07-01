@@ -40,9 +40,9 @@ async function populate(obj, ele) {
   list.forEach((element) => {
     if (i < 4) {
       html += `<div id=${element._id} class="icons">
-      <img src="../public/data/uploads/${element.Image}" />
+      <img src="./static/public/images/${element.Image}" />
       <h3>${element.ProductsName}</h3>
-      <p>Cost:Rs${element.cost}</p>
+      <p>Cost:Rs${element.Cost}</p>
     </div>`;
     }
     i++;

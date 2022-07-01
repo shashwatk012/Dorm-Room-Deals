@@ -241,7 +241,7 @@ app.get("/seller", (req, res) => {
 // const upload = multer({ dest: "./public/data/uploads/" });
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./public/data/uploads/");
+    cb(null, "./static/public/images/");
   },
 
   filename: (req, file, cb) => {
