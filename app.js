@@ -314,15 +314,19 @@ app.post("/seller", upload.single("uploaded_file"), async function (req, res) {
 //
 // });
 app.get("/logout", async (req, res) => {
-  const token = req.cookies.jwt;
-  const verify = jwt.verify(token, "mynameisxyzemailidxyzphonenumberxyz");
-  const user = await Signupdetails.findOne({ _id: verify._id });
-  res.clearCookie("jwt");
-  user.tokens = user.tokens.filter((currentCookie) => {
-    return currentCookie.token !== token;
-  });
-  await user.save();
-  res.status(200).render("login.pug");
+  try {
+    const token = req.cookies.jwt;
+    const verify = jwt.verify(token, "mynameisxyzemailidxyzphonenumberxyz");
+    const user = await Signupdetails.findOne({ _id: verify._id });
+    res.clearCookie("jwt");
+    user.tokens = user.tokens.filter((currentCookie) => {
+      return currentCookie.token !== token;
+    });
+    await user.save();
+    res.status(200).render("login.pug");
+  } catch (err) {
+    res.status(200).render("login.pug");
+  }
 });
 
 //login
