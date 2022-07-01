@@ -16,19 +16,19 @@ async function populate() {
   list.forEach((element) => {
     if (element.ProductsName.toLowerCase().includes(namei)) {
       html += `<div id=${element._id} class="icons">
-      <img src=${element.Image} />
+      <img src="./static/public/images/${element.Image}" />
       <h3>${element.ProductsName}</h3>
       <p>Cost:Rs${element.Cost}</p>
     </div>`;
     } else if (element.Type.toLowerCase().includes(namei)) {
       html += `<div id=${element._id} class="icons">
-      <img src=${element.Image} />
+      <img src="./static/public/images/${element.Image}" />
       <h3>${element.ProductsName}</h3>
       <p>Cost:Rs${element.Cost}</p>
     </div>`;
     } else if (element.BrandsName.toLowerCase().includes(namei)) {
       html += `<div id=${element._id} class="icons">
-      <img src=${element.Image} />
+      <img src="./static/public/images/${element.Image}" />
       <h3>${element.ProductsName}</h3>
       <p>Cost:Rs${element.Cost}</p>
     </div>`;
