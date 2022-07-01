@@ -148,7 +148,8 @@ h4 {
   border-radius: 1em;
 }
 .icons img {
-  height: 12em;
+  width: 72%;
+  height: 70%;
   margin-bottom: 1em;
 }
 .h3 {
