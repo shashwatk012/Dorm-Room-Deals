@@ -423,6 +423,7 @@ app.post("/contact", async (req, res) => {
 app.get("/ProdutsName", async (req, res) => {
   const id = req.params.ProdutsName;
   const details = await Sellerdetails.find();
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.status(200).send(details);
 });
 app.get("/:Type", async (req, res) => {

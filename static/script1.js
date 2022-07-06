@@ -30,9 +30,10 @@ async function populate(obj, ele) {
   const request = new Request(requestURL);
 
   const response = await fetch(request);
-  const superHeroesText = await response.text();
+  // const superHeroesText = await response.text();
 
-  const list = JSON.parse(superHeroesText);
+  // const list = JSON.parse(superHeroesText);
+  const list = await response.json();
   // console.log(list);
 
   let html = "";
