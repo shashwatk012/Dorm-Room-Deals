@@ -1,6 +1,6 @@
 extends base.pug
 block meta
-  meta(name="google-signin-client_id" content="924707029875-p6jj4mlkq85cdo7hu0oeo4iun7k4dj4b.apps.googleusercontent.com")
+  //- meta(name="google-signin-client_id" content="924707029875-p6jj4mlkq85cdo7hu0oeo4iun7k4dj4b.apps.googleusercontent.com")
 block title
   title Login 
 block style 
@@ -11,6 +11,7 @@ block scripts
   script 
     include ../static/login.js
   script(src="https://apis.google.com/js/platform.js" async defer)
+  script(src="https://accounts.google.com/gsi/client" async defer)
   //- script(src="https://apis.google.com/js/api.js")
   //- script(src="https://accounts.google.com/gsi/client" onload="initClient()" async defer)
 block content
@@ -25,7 +26,12 @@ block content
         div.sign
           p.need Need an account? 
           a(href="/signup" class="up") Sign up
-  div(class="g-signin2" data-onsuccess="onSignIn")
+    
+  div#g_id_onload(
+         data-client_id="924707029875-p6jj4mlkq85cdo7hu0oeo4iun7k4dj4b.apps.googleusercontent.com"
+         data-callback="onSignIn")
+    <div class="g_id_signin" data-type="standard"></div>
+  //- div(class="g-signin2" data-onsuccess="onSignIn")
           
 
 
