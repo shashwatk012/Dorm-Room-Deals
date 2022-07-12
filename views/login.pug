@@ -8,10 +8,10 @@ block style
       include ../static/style.css
 
 block scripts
+  script(src="https://accounts.google.com/gsi/client" async defer)
   script 
     include ../static/login.js
   //- script(src="https://apis.google.com/js/platform.js" async defer)
-  script(src="https://accounts.google.com/gsi/client" async defer)
   //- script(src="https://apis.google.com/js/api.js")
   //- script(src="https://accounts.google.com/gsi/client" onload="initClient()" async defer)
 block content
