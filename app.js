@@ -264,7 +264,7 @@ app.post("/seller", upload.single("uploaded_file"), async function (req, res) {
   const name = req.body.Name;
   const address = req.body.Address;
   const image = req.file.filename;
-  console.log(image);
+  //console.log(image);
   const cost = req.body.Cost;
   const age = req.body.Age;
   const productsname = req.body.ProductsName;
