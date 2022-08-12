@@ -75,3 +75,12 @@ h3 {
 h6 {
   font-size: 1em;
 }
+
+.btn {
+  width: 14%;
+  margin-top: 21px;
+  cursor: pointer;
+  background-color: rgb(145, 135, 135);
+  text-align: center;
+  padding: 3px;
+}

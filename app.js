@@ -78,6 +78,10 @@ const ContactSchema = new mongoose.Schema({
   Address: String,
   Concern: String,
 });
+const AddtocartSchema = new mongoose.Schema({
+  Name: String,
+  idi: String,
+});
 
 //for selling
 const SellerSchema = new mongoose.Schema({
@@ -96,6 +100,7 @@ const SellerSchema = new mongoose.Schema({
 const Signupdetails = mongoose.model("Signupdetails", SignupSchema);
 const Contactdetails = mongoose.model("Contactdetails", ContactSchema);
 const Sellerdetails = mongoose.model("Sellerdetails", SellerSchema);
+const Addtocart = mongoose.model("Addtocart", AddtocartSchema);
 
 // ENDPOINTS
 
@@ -131,6 +136,23 @@ app.get("/loginDetails", async (req, res) => {
   } catch (e) {
     return console.log(e);
   }
+});
+app.post("/add", async (req, res) => {
+  const token = req.cookies.jwt;
+  const verify = jwt.verify(token, "mynameisxyzemailidxyzphonenumberxyz");
+  const user = await Signupdetails.findOne({ _id: verify._id });
+  const id = req.body.id;
+  console.log(id, user);
+  // this.tokens = this.tokens.concat({ token: token });
+  const myData = new Addtocart({
+    Name: user.Email,
+    idi: id,
+  });
+  myData.save();
+  res.status(200).send(user);
+});
+app.get("/add", async (req, res) => {
+  res.status(200).sendFile("addtocart.html", { root: __dirname });
 });
 
 app.get("/profile", async (req, res) => {

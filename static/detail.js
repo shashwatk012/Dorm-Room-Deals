@@ -12,7 +12,7 @@ async function populate() {
 
   let html = "";
   list.forEach((element) => {
-    html += `<div class="img"><img src="./static/public/images/${element.Image}" alt="" /><h2 class="hidden">${element.ProductsName}</h2></div>
+    html += `<div id=${element._id} class="img"><img src="./static/public/images/${element.Image}" alt="" /><h2 class="hidden">${element.ProductsName}</h2></div>
     <div class="inform">
       <h2>${element.ProductsName}</h2>
       <h3>Cost:Rs${element.Cost}</h3>
@@ -24,6 +24,7 @@ async function populate() {
       <h6>${element.Type}</h6>
       <h6>Brand's Name:${element.BrandsName}</h6>
       <h6>Old: ${element.Age}</h6>
+      <div class="btn">Add to Cart</div>
       <h3>More details</h3>
       <h6>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime vitae
@@ -34,5 +35,25 @@ async function populate() {
     </div>`;
   });
   detail.innerHTML = html;
+  const add = document.querySelector(".btn");
+  add.addEventListener("click", async () => {
+    const img = document.querySelector(".img");
+    const id = img.id;
+    const params = {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({
+        id: id,
+      }),
+    };
+    const requestURL = "/add";
+    const request = new Request(requestURL);
+    const response = await fetch(request, params);
+    const superHeroesText = await response.text();
+    const list = JSON.parse(superHeroesText);
+    location.href = "/add";
+  });
 }
 populate();
