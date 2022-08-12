@@ -466,8 +466,3 @@ app.get("/details/:id", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at ${port}`);
 });
-
-// app.get("/log", async (req, res) => {
-//   const registeredEmail = await Signupdetails.find();
-//   res.status(200).send(registeredEmail);
-// });
