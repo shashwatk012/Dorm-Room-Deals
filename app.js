@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("./conn.js");
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
@@ -6,17 +7,16 @@ const app = express();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const bodyparser = require("body-parser");
-const mongoose = require("mongoose");
 var cookieParser = require("cookie-parser");
 const multer = require("multer");
 const hostname = "0.0.0.0";
 const port = process.env.PORT || 3000;
-const mongoDbURL =
-  process.env.MONGODB_URL ||
-  `mongodb://localhost:27017/${process.env.DATABASE}`;
-mongoose.connect(mongoDbURL, { useNEWUrlParser: true });
-
-var db = mongoose.connection;
+const {
+  Signupdetails,
+  Contactdetails,
+  Sellerdetails,
+  Addtocart,
+} = require("./schema.js");
 
 // EXPRESS SPECIFIC STUFF
 app.use("/static", express.static("static")); // For serving static files
@@ -31,85 +31,21 @@ app.set("view engine", "pug"); // Set the template engine as pug
 app.set("views", path.join(__dirname, "views")); // Set the views directory
 
 //for registration
-const SignupSchema = new mongoose.Schema({
-  Name: String,
-  Username: String,
-  Email: String,
-  Phone: String,
-  Password: String,
-  Cpassword: String,
-  tokens: [
-    {
-      token: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
-});
-
-SignupSchema.methods.tokengenerator = async function () {
-  try {
-    const token = jwt.sign(
-      { _id: this._id.toString() },
-      "mynameisxyzemailidxyzphonenumberxyz"
-    ); //we could use the secretkey as a env file but heroku does not support
-    this.tokens = this.tokens.concat({ token: token });
-    await this.save();
-    return token;
-  } catch (e) {
-    return console.log(e);
-  }
-};
-//console.log(process.env.DATABASE);
-
-SignupSchema.pre("save", async function (next) {
-  if (this.isModified("Password")) {
-    this.Password = await bcrypt.hash(this.Password, 10);
-    this.Cpassword = await bcrypt.hash(this.Cpassword, 10);
-  }
-  next();
-});
-//For issues
-const ContactSchema = new mongoose.Schema({
-  Name: String,
-  Phone: String,
-  Email: String,
-  Address: String,
-  Concern: String,
-});
-const AddtocartSchema = new mongoose.Schema({
-  Name: String,
-  idi: String,
-});
-
-//for selling
-const SellerSchema = new mongoose.Schema({
-  Name: String,
-  BrandsName: String,
-  Phone: String,
-  Email: String,
-  Address: String,
-  ProductsName: String,
-  Type: String,
-  Age: String,
-  Image: String,
-  Cost: Number,
-});
-
-const Signupdetails = mongoose.model("Signupdetails", SignupSchema);
-const Contactdetails = mongoose.model("Contactdetails", ContactSchema);
-const Sellerdetails = mongoose.model("Sellerdetails", SellerSchema);
-const Addtocart = mongoose.model("Addtocart", AddtocartSchema);
 
 // ENDPOINTS
 
 //home page before login
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const token = req.cookies.jwt;
     const verify = jwt.verify(token, "mynameisxyzemailidxyzphonenumberxyz");
-    res.status(200).sendFile("index1.html", { root: __dirname });
+    const data = await Signupdetails.findOne({ _id: verify._id });
+    data.tokens.forEach((element) => {
+      if (element.token === token) {
+        res.status(200).sendFile("index1.html", { root: __dirname });
+      }
+    });
+    res.status(200).sendFile("index.html", { root: __dirname });
   } catch (e) {
     res.status(200).sendFile("index.html", { root: __dirname });
   }
@@ -118,7 +54,6 @@ app.get("/", (req, res) => {
 //home page after login
 app.get("/home", async (req, res) => {
   try {
-    3;
     res.status(200).sendFile("index1.html", { root: __dirname });
   } catch (e) {
     return console.log(e);
@@ -127,13 +62,9 @@ app.get("/home", async (req, res) => {
 app.get("/loginDetails", async (req, res) => {
   try {
     const token = req.cookies.jwt;
-    if (token === undefined) {
-      res.status(200).send({ Name: "Error" });
-    } else {
-      const verify = jwt.verify(token, "mynameisxyzemailidxyzphonenumberxyz");
-      const user = await Signupdetails.findOne({ _id: verify._id });
-      res.status(200).send(user);
-    }
+    const verify = jwt.verify(token, "mynameisxyzemailidxyzphonenumberxyz");
+    const user = await Signupdetails.findOne({ _id: verify._id });
+    res.status(200).send(user);
   } catch (e) {
     return console.log(e);
   }
@@ -189,72 +120,46 @@ app.get("/signup", (req, res) => {
 
 app.post("/signup", async (req, res) => {
   try {
-    const email = req.body.Email;
-    const Username = req.body.Username;
-    const phone = req.body.Phone;
-    const name = req.body.Name;
     const password = req.body.Password;
     const cpassword = req.body.Cpassword;
-    if (
-      email === "" ||
-      phone === "" ||
-      name === "" ||
-      password === "" ||
-      cpassword === "" ||
-      Username === ""
-    ) {
-      const params = {
-        Fill: "Fill the required Details",
-      };
-      res.status(200).render("signup.pug", params);
-    } else if (password !== cpassword) {
+    if (password !== cpassword) {
       const params = {
         Fill: "Passwords are different",
       };
       res.status(200).render("signup.pug", params);
-    } else if (phone.length < 10 && phone.length > 11) {
+    } else {
+      const myData = new Signupdetails(req.body);
+      await myData.save();
       const params = {
-        Fill: "Phone number is invalid",
+        Fill: "You have been registered. Try Login Now!",
+      };
+      res.status(200).render("login.pug", params);
+    }
+  } catch (error) {
+    if (error.errors === undefined) {
+      const params = {
+        Fill: "Email or Phone is already registered",
       };
       res.status(200).render("signup.pug", params);
     } else {
-      const registeredEmail = await Signupdetails.findOne({
-        Email: email,
-      });
-      const registeredPhone = await Signupdetails.findOne({
-        Phone: phone,
-      });
-      if (registeredEmail === null && registeredPhone === null) {
-        const myData = new Signupdetails(req.body);
-        const token = await myData.tokengenerator();
-        // res.cookie("jwt", token, {
-        //   expires: new Date(Date.now() + 30000),
-        //   httpOnly: true,
-        // });
-        res.cookie("jwt", token, {
-          expires: new Date(Date.now() + 86400000),
-          httpOnly: true,
-        });
-        // console.log(cookie);
-        myData.save((err, k) => {
-          if (err) {
-            return console.log("err");
-          } else {
-            const params = {
-              Fill: "You have been registered. Try Login Now!",
-            };
-            return res.status(200).render("login.pug", params);
-          }
-        });
-      } else {
+      const a = Object.keys(error.errors);
+      const variable = a[0];
+      if (variable === "Phone") {
         const params = {
-          Fill: "Phone number or Email already registered! Try Log in",
+          Fill: error.errors.Phone.message,
+        };
+        res.status(200).render("signup.pug", params);
+      } else if (variable === "Password") {
+        const params = {
+          Fill: error.errors.Password.message,
         };
         res.status(200).render("signup.pug", params);
       }
+      const params = {
+        Fill: "Fill all the Details properly",
+      };
+      res.status(200).render("signup.pug", params);
     }
-  } catch (error) {
-    return console.log("lawda");
   }
 });
 //seller
@@ -281,39 +186,17 @@ const upload = multer({
 app.post("/seller", upload.single("uploaded_file"), async function (req, res) {
   // req.file is the name of your file in the form above, here 'uploaded_file'
   // req.body will hold the text fields, if there were any
-  console.log(req.file, req.body);
-  const email = req.body.Email;
-  const phone = req.body.Phone;
-  const name = req.body.Name;
-  const address = req.body.Address;
-  const image = req.file.filename;
-  //console.log(image);
-  const cost = req.body.Cost;
-  const age = req.body.Age;
-  const productsname = req.body.ProductsName;
-  const type = req.body.Type;
-  const brandsName = req.body.BrandsName;
-  if (
-    email === "" ||
-    phone === "" ||
-    name === "" ||
-    address === "" ||
-    cost === "" ||
-    productsname === "" ||
-    type === "" ||
-    age === "" ||
-    brandsName === ""
-  ) {
-    const params = {
-      Fill: "Fill the required Details",
-    };
-    res.status(200).render("seller.pug", params);
-  } else if (phone.length < 10) {
-    const params = {
-      Fill: "Phone number is invalid",
-    };
-    res.status(200).render("seller.pug", params);
-  } else {
+  try {
+    const email = req.body.Email;
+    const phone = req.body.Phone;
+    const name = req.body.Name;
+    const address = req.body.Address;
+    const image = req.file.filename;
+    const cost = req.body.Cost;
+    const age = req.body.Age;
+    const productsname = req.body.ProductsName;
+    const type = req.body.Type;
+    const brandsName = req.body.BrandsName;
     const myData = new Sellerdetails({
       Name: name,
       BrandsName: brandsName,
@@ -331,6 +214,11 @@ app.post("/seller", upload.single("uploaded_file"), async function (req, res) {
       Fill: "Your data has been saved successfully! Buyer will contact you soon",
     };
     res.status(200).render("contact.pug", params);
+  } catch (err) {
+    const params = {
+      Fill: "Fill all the required Details properly",
+    };
+    res.status(400).render("seller.pug", params);
   }
 });
 // app.post("/seller", (req, res) => {
@@ -348,7 +236,7 @@ app.get("/logout", async (req, res) => {
     await user.save();
     res.status(200).render("login.pug");
   } catch (err) {
-    res.status(200).render("login.pug");
+    res.status(400).send(err);
   }
 });
 
@@ -405,50 +293,26 @@ app.post("/login", async (req, res) => {
 
 app.post("/contact", async (req, res) => {
   try {
-    const email = req.body.Email;
-    const phone = req.body.Phone;
-    const name = req.body.Name;
-    const address = req.body.Address;
-    const concern = req.body.Concern;
-    if (
-      email === "" ||
-      phone === "" ||
-      name === "" ||
-      address === "" ||
-      concern === ""
-    ) {
-      const params = {
-        Fill: "You did not fill the required Details. Please! fill the form again",
-      };
-      res.status(200).render("contact.pug", params);
-    } else if (phone.length < 10) {
-      const params = {
-        Fill: "Phone number is invalid",
-      };
-      res.status(200).render("contact.pug", params);
-    } else {
-      const myData = new Contactdetails(req.body);
-      myData.save((err, k) => {
-        if (err) {
-          return console.log("err");
-        } else {
-          const params = {
-            Fill: "We will reach you soon",
-          };
-          return res.status(200).render("contact.pug", params);
-        }
-      });
-    }
+    const myData = new Contactdetails(req.body);
+    await myData.save();
+    const params = {
+      Fill: "We will reach you soon",
+    };
+    res.status(200).render("contact.pug", params);
   } catch (error) {
-    return console.log("lawda");
+    const params = {
+      Fill: "Fill all the details properly",
+    };
+    res.status(400).render("contact.pug", params);
   }
 });
+
 app.get("/ProdutsName", async (req, res) => {
-  const id = req.params.ProdutsName;
   const details = await Sellerdetails.find();
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.status(200).send(details);
 });
+
 app.get("/:Type", async (req, res) => {
   const type = req.params.Type;
   const Mobiles = await Sellerdetails.find({
@@ -456,6 +320,7 @@ app.get("/:Type", async (req, res) => {
   });
   res.status(200).send(Mobiles);
 });
+
 app.get("/details/:id", async (req, res) => {
   const id = req.params.id;
   const details = await Sellerdetails.find({
